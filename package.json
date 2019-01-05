@@ -26,5 +26,11 @@
   "bugs": {
     "url": "https://github.com/rajeevs1992/cordova-sms-reader/issues"
   },
-  "homepage": "https://github.com/rajeevs1992/cordova-sms-reader#readme"
+  "homepage": "https://github.com/rajeevs1992/cordova-sms-reader#readme",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.4.0"
+    }
+  ]
 }
