@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="cordova-sms-reader"
+        version="0.0.1">
+
+  <name>SMSReader</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <js-module src="www/smsreader.js" name="smsreader">
+    <clobbers target="smsreader" />
+  </js-module>
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="SMSReader">
+        <param name="android-package" value="io.github.rajeevs1992.smsreader.SMSReader"/>
+      </feature>
+    </config-file>
+    
+    <source-file src="src/android/SMSReader.java" target-dir="src/io/github/rajeevs1992/smsreader"/>
+    <source-file src="src/android/SMS.java" target-dir="src/io/github/rajeevs1992/smsreader"/>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.READ_SMS" />
+    </config-file>
+    
+  </platform>
+
+</plugin>

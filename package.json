@@ -1,0 +1,30 @@
+{
+  "name": "cordova-sms-reader",
+  "version": "0.0.1",
+  "description": "A no non sense plugin to read SMS",
+  "cordova": {
+    "id": "cordova-sms-reader",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajeevs1992/cordova-sms-reader.git"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "sms",
+    "read sms",
+    "sms reader",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Rajeev Sreedharan",
+  "license": "Apache-2",
+  "bugs": {
+    "url": "https://github.com/rajeevs1992/cordova-sms-reader/issues"
+  },
+  "homepage": "https://github.com/rajeevs1992/cordova-sms-reader#readme"
+}
