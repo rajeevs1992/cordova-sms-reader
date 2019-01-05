@@ -2,7 +2,7 @@
 
 A simple to use, minimal frills SMS reader for cordova applications.
 
-To keep things simple, only inbox is searched.
+To keep things simple, only inbox is searched. Please note that this plugin does not manage permissions checks. Use other cordova plugins (like [cordova-plugin-android-permissions](https://github.com/NeoLSN/cordova-plugin-android-permissions)) to acquire `READ_SMS` permissions.
 
 ## Installing
 
