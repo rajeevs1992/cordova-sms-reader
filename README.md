@@ -6,13 +6,13 @@ To keep things simple, only inbox is searched. Please note that this plugin does
 
 ## Installing
 
+From cordova plugin registry
+
+    cordova plugin add cordova-sms-reader
+
 From plugin repository
 
     cordova plugin add https://github.com/rajeevs1992/cordova-sms-reader.git
-
-To install a specific release version, use
-
-    cordova plugin add https://github.com/rajeevs1992/cordova-sms-reader.git#0.0.1
 
 ## Supported platforms
 
