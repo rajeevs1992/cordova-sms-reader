@@ -1,6 +1,6 @@
 {
   "name": "cordova-sms-reader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A no non sense plugin to read SMS",
   "cordova": {
     "id": "cordova-sms-reader",

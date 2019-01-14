@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="cordova-sms-reader"
-        version="0.0.2">
+        version="0.0.3">
 
   <name>SMSReader</name>
 
@@ -25,6 +25,8 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.READ_SMS" />
+      <uses-permission android:name="android.permission.RECEIVE_SMS" />
+      <uses-permission android:name="android.permission.SEND_SMS" />
     </config-file>
     
   </platform>

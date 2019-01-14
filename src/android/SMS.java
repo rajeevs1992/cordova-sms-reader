@@ -20,34 +20,32 @@ public class SMS {
     }
 
     private boolean applySenderFilter(String[] senderids) {
-        if (senderids.length > 0) {
-            for (int i = 0; i < senderids.length; i++) {
-                if (this.address.equals(senderids[i])) {
-                    return true;
-                }
+        for (int i = 0; i < senderids.length; i++) {
+            if (this.address.equals(senderids[i])) {
+                return true;
             }
-            return false;
         }
-        return true;
+        return false;
     }
 
-    public boolean applyFilters(long sinceDate, String[] senderids, String[] searchKeys) {
+    public boolean applyFilters(long sinceDate, String[] searchKeys, String[] senderids) {
         if (this.date <= sinceDate) {
             return false;
         }
-        return this.applyBodySearchFilters(searchKeys) && this.applySenderFilter(senderids);
+        if (senderids.length + searchKeys.length == 0) {
+            // Get all SMS.
+            return true;
+        }
+        return this.applyBodySearchFilters(searchKeys) || this.applySenderFilter(senderids);
     }
 
     private boolean applyBodySearchFilters(String[] searchKeys) {
-        if (searchKeys.length > 0) {
-            for (int i = 0; i < searchKeys.length; i++) {
-                if (this.body.toLowerCase().contains(searchKeys[i].toLowerCase())) {
-                    return true;
-                }
+        for (int i = 0; i < searchKeys.length; i++) {
+            if (this.body.toLowerCase().contains(searchKeys[i].toLowerCase())) {
+                return true;
             }
-            return false;
         }
-        return true;
+        return false;
     }
 
     public JSONObject writeJSON() throws JSONException {

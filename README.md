@@ -2,7 +2,7 @@
 
 A simple to use, minimal frills SMS reader for cordova applications.
 
-To keep things simple, only inbox is searched. Please note that this plugin does not manage permissions checks. Use other cordova plugins (like [cordova-plugin-android-permissions](https://github.com/NeoLSN/cordova-plugin-android-permissions)) to acquire `READ_SMS` permissions.
+To keep things simple, only inbox is searched.
 
 ## Installing
 
@@ -24,6 +24,7 @@ From plugin repository
   - [.getAllSMS(since)](#getallsms)
   - [.filterSenders(senderids, since)](#filtersenders)
   - [.filterBody(searchtexts, since)](#filterbody)
+  - [.filterBodyOrSenders(searchtexts, senderids, since)](#filterBodyOrSenders)
   - [.SMS](#sms) : `Object`
   
 
@@ -106,6 +107,32 @@ smsreader.filterBody(['hello','alice'])
 smsreader.filterBody(['hello','alice'], '2019-01-01')
     .then((sms)=>{
         // Fetches all SMS, with body containing words 'hello' OR 'alice' AND receieved after 2019-01-01.
+    },
+    (err)=>{
+        console.error(err);
+    });
+```
+
+
+### filterBodyOrSenders(searchtexts, since)
+
+<a id="filterBodyOrSenders"></a>
+Fetch all SMS since date, filtered by search texts or sender ids. SMS is returned if **ANY** of the search string is present in the body **OR** is from any of the senderids. The `since` parameter is optional.
+
+> The search text is case insensitive.
+
+```js
+smsreader.filterBodyOrSenders(['hello','alice'], ['12456','147589'])
+    .then((sms)=>{
+        // Fetches all SMS, with body containing words ('hello' OR 'alice') OR (address in ['12456','147589'])
+    },
+    (err)=>{
+        console.error(err);
+    });
+
+smsreader.filterBodyOrSenders(['hello','alice'], ['12456','147589'], '2019-01-01')
+    .then((sms)=>{
+        // Fetches all SMS, with body containing words ('hello' OR 'alice') OR (address in ['12456','147589']) AND receieved after 2019-01-01.
     },
     (err)=>{
         console.error(err);
