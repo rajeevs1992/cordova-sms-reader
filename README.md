@@ -114,7 +114,7 @@ smsreader.filterBody(['hello','alice'], '2019-01-01')
 ```
 
 
-### filterBodyOrSenders(searchtexts, since)
+### filterBodyOrSenders(searchtexts, senderids, since)
 
 <a id="filterBodyOrSenders"></a>
 Fetch all SMS since date, filtered by search texts or sender ids. SMS is returned if **ANY** of the search string is present in the body **OR** is from any of the senderids. The `since` parameter is optional.
