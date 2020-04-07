@@ -5,7 +5,7 @@ function ensurePermission(permissions) {
 }
 
 function fetchSms(action, foldertype, since, searchtexts, senderids, permissions) {
-    let _foldertype = 'all';
+    let _foldertype = '';
     let _senderids = [];
     let _searchtexts = [];
     let _since = 0;
@@ -31,7 +31,7 @@ function fetchSms(action, foldertype, since, searchtexts, senderids, permissions
         });
 }
 function fetchSmsInbox(action, since, searchtexts, senderids, permissions) {
-    return fetchSms('inbox', action, since, searchtexts, senderids, permissions);
+    return fetchSms(action, 'inbox', since, searchtexts, senderids, permissions);
 }
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
      * @deprecated Replaced by getSmsInbox
      */
     getAllSMS: function (since) {
-        return getSmsInbox(since);
+        return this.getSmsInbox(since);
     },
     filterSenders: function (senderids, since) {
         return fetchSmsInbox("filtersenders", since, null, senderids, ['read']);
@@ -51,12 +51,15 @@ module.exports = {
         return fetchSmsInbox("filterbodyorsenders", since, searchtexts, senderids, ['read']);
     },
     getSmsFromFolder: function (folderType, since) {
-        return fetchSms('all', folderType, since, null, null,  ['read']);
+        return fetchSms("all", folderType, since, null, null, ['read']);
     },
     getSmsAll: function(since) {
-        return getSmsFromFolder('all', since);
+        return this.getSmsFromFolder('', since);
     },
     getSmsInbox: function(since) {
-        return fetchSmsInbox("all", since, null, null, ['read']);
+        return this.getSmsFromFolder('inbox', since);
     },
+    getSmsSent: function (since) {
+        return this.getSmsFromFolder('sent', since);
+    }
 };
