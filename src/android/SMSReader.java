@@ -37,7 +37,7 @@ public class SMSReader extends CordovaPlugin {
         Log.v("SMSReader", "Called action " + action);
         try {
             ArrayList<SMS> sms = new ArrayList<SMS>();
-            if (action == 'permission') {
+            if ("permission".equals(action)) {
                 this.ensurePermissions(this.getStringArrayFromJSONArray(data.getJSONArray(0)), callbackContext);
                 return true;
             } else {
@@ -67,11 +67,11 @@ public class SMSReader extends CordovaPlugin {
                             sms = this.fetchSMS(folderType, since, searchstrings, senderids);
                         }
                     }
+                    break;
                     default: {
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
                         return false;
                     }
-                    break;
                 }
             }
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, this.convertToJSONArray(sms)));
@@ -142,7 +142,7 @@ public class SMSReader extends CordovaPlugin {
         return smsResult;
     }
 
-    private ArrayList<SMS> fetchSMS(long since, String folderType, String[] searchText, String[] senderids) {
+    private ArrayList<SMS> fetchSMS(String folderType, long since, String[] searchText, String[] senderids) {
         ArrayList<SMS> lstSms = new ArrayList<SMS>();
 
         Uri message = Uri.parse("content://sms/" + folderType);
