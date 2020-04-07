@@ -37,41 +37,42 @@ public class SMSReader extends CordovaPlugin {
         Log.v("SMSReader", "Called action " + action);
         try {
             ArrayList<SMS> sms = new ArrayList<SMS>();
-            switch (action) {
-            case "permission": {
+            if (action == 'permission') {
                 this.ensurePermissions(this.getStringArrayFromJSONArray(data.getJSONArray(0)), callbackContext);
                 return true;
-            }
-            case "all": {
-                sms = this.fetchSMS(data.getLong(0), new String[] {}, new String[] {});
-            }
-                break;
-            case "filterbody": {
-                String[] searchstrings = this.getStringArrayFromJSONArray(data.getJSONArray(1));
-                if (searchstrings.length > 0) {
-                    sms = this.fetchSMS(data.getLong(0), searchstrings, new String[] {});
+            } else {
+                String folderType = data.getString(0);
+                Long since = data.getLong(1);
+                String[] searchstrings = this.getStringArrayFromJSONArray(data.getJSONArray(2));
+                String[] senderids = this.getStringArrayFromJSONArray(data.getJSONArray(3));
+                switch (action) {
+                    case "all": {
+                        sms = this.fetchSMS(folderType, since, new String[]{}, new String[]{});
+                    }
+                    break;
+                    case "filterbody": {
+                        if (searchstrings.length > 0) {
+                            sms = this.fetchSMS(folderType, since, searchstrings, new String[] {});
+                        }
+                    }
+                    break;
+                    case "filtersenders": {
+                        if (senderids.length > 0) {
+                            sms = this.fetchSMS(folderType, since, new String[] {}, senderids);
+                        }
+                    }
+                    break;
+                    case "filterbodyorsenders": {
+                        if (searchstrings.length + senderids.length > 0) {
+                            sms = this.fetchSMS(folderType, since, searchstrings, senderids);
+                        }
+                    }
+                    default: {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
+                        return false;
+                    }
+                    break;
                 }
-            }
-                break;
-            case "filtersenders": {
-                String[] senderids = this.getStringArrayFromJSONArray(data.getJSONArray(2));
-                if (senderids.length > 0) {
-                    sms = this.fetchSMS(data.getLong(0), new String[] {}, senderids);
-                }
-            }
-                break;
-            case "filterbodyorsenders": {
-                String[] searchstrings = this.getStringArrayFromJSONArray(data.getJSONArray(1));
-                String[] senderids = this.getStringArrayFromJSONArray(data.getJSONArray(2));
-                if (searchstrings.length + senderids.length > 0) {
-                    sms = this.fetchSMS(data.getLong(0), searchstrings, senderids);
-                }
-            }
-                break;
-            default: {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
-                return false;
-            }
             }
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, this.convertToJSONArray(sms)));
             return true;
@@ -141,10 +142,10 @@ public class SMSReader extends CordovaPlugin {
         return smsResult;
     }
 
-    private ArrayList<SMS> fetchSMS(long since, String[] searchText, String[] senderids) {
+    private ArrayList<SMS> fetchSMS(long since, String folderType, String[] searchText, String[] senderids) {
         ArrayList<SMS> lstSms = new ArrayList<SMS>();
 
-        Uri message = Uri.parse("content://sms/inbox");
+        Uri message = Uri.parse("content://sms/" + folderType);
         ContentResolver contentResolver = cordova.getActivity().getContentResolver();
 
         Cursor cursor = contentResolver.query(message, null, null, null, null);
