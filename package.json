@@ -22,7 +22,7 @@
     "cordova-android"
   ],
   "author": "Rajeev Sreedharan",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/rajeevs1992/cordova-sms-reader/issues"
   },

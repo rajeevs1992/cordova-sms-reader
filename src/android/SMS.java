@@ -10,6 +10,7 @@ public class SMS {
     public String body;
     public Boolean read;
     public long date;
+    public int type;
 
     public SMS(Cursor cursor) {
         this.id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
@@ -17,6 +18,7 @@ public class SMS {
         this.body = cursor.getString(cursor.getColumnIndexOrThrow("body"));
         this.read = cursor.getInt(cursor.getColumnIndexOrThrow("read")) == 1;
         this.date = cursor.getLong(cursor.getColumnIndexOrThrow("date"));
+        this.type = cursor.getInt(cursor.getColumnIndexOrThrow("type"));
     }
 
     private boolean applySenderFilter(String[] senderids) {
@@ -55,6 +57,7 @@ public class SMS {
         sms.put("body", this.body);
         sms.put("read", this.read);
         sms.put("date", this.date);
+        sms.put("type", this.type);
         return sms;
     }
 }
